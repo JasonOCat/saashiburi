@@ -11,7 +11,7 @@ export default function Navbar() {
         <Link href="/login" className="nav-link white">
           <div>Login</div>
         </Link>
-        <Link href="/pricing" className="nav-link black">
+        <Link href="/products" className="nav-link black">
           <div>Pricing</div>
         </Link>
       </div>
