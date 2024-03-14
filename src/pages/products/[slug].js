@@ -1,10 +1,36 @@
 import {supabase} from "../../../supabase";
+import Image from "next/image";
+import PromoCard from "src/products/components/PromoCard";
 
 export default function ProductPage({product}) {
   console.log(product);
 
   return (
-    <div>product page</div>
+    <section className="product-section">
+      <article className="product">
+        <div className="product-wrap">
+          <Image
+            width={1000}
+            height={300}
+            src={`/assets/${product.slug}.png`}
+            alt={product.name}
+          />
+        </div>
+        <section>
+          <header>
+            <h3>{product.name}</h3>
+          </header>
+          <section>
+            <div>
+              <p>{product.description}</p>
+            </div>
+          </section>
+        </section>
+        <section>
+          <PromoCard />
+        </section>
+      </article>
+    </section>
   )
 }
 
@@ -16,8 +42,6 @@ export async function getStaticPaths() {
       slug: product.slug // same name as the file [slug].js
     }
   }))
-
-  console.log(paths);
 
   return {
     paths,
@@ -32,7 +56,6 @@ export async function getStaticProps(context) {
   let { data: product } = await supabase
     .from('product')
     .select("*")
-    // Filters
     .eq('slug', slug)
     .single()
 
