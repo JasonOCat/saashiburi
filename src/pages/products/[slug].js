@@ -3,7 +3,6 @@ import Image from "next/image";
 import PromoCard from "src/products/components/PromoCard";
 
 export default function ProductPage({product}) {
-  console.log(product);
 
   return (
     <section className="product-section">
