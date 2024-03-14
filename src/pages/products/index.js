@@ -1,8 +1,8 @@
 import {supabase} from "../../../supabase";
 import ProductCard from "src/products/components/Card";
 
+// products will be populated at build time by getStaticProps()
 export default function ProductsPage({products}) {
-  console.log(products)
   return (
     <>
       <div className="section bg-blue">
@@ -38,6 +38,8 @@ export async function getStaticProps() {
     .from('product')
     .select('*')
 
+  // By returning { props: { products } }, the ProductPage component
+  // will receive `posts` as a prop at build time
   return {
     props: {
       products,
