@@ -1,9 +1,13 @@
 import {stripe} from "src/pricing/utils/stripe";
+import Plans from "src/pricing/components/Plans";
+import Benefits from "src/pricing/components/Benefits";
 
 export default function PricingPage({plans}) {
-  console.log(plans)
   return (
-    <div>Pricings</div>
+    <div className="grid-halves h-screen-navbar">
+      <Plans plans={plans} />
+      <Benefits />
+    </div>
   )
 }
 
