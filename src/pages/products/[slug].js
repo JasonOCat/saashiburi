@@ -29,7 +29,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const slug = context.params.slug
 
-  let { data: product, error } = await supabase
+  let { data: product } = await supabase
     .from('product')
     .select("*")
     // Filters
