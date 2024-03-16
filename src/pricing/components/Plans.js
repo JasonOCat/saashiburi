@@ -4,6 +4,7 @@ import {loadStripe} from "@stripe/stripe-js";
 
 export default function Plans({plans}) {
   const [selectedPlan, setSelectPlan] = useState("month");
+  const [isRedirecting, setRedirecting] = useState(false);
   const plan = plans.find((plan) => plan.interval === selectedPlan);
 
   function togglePlan() {
@@ -12,11 +13,12 @@ export default function Plans({plans}) {
   }
 
   async function onCheckout() {
-    console.log(plan.id)
+    setRedirecting(true);
     const response = await fetch(`${SITE_URL}/api/checkout/${plan.id}`);
     const data = await response.json();
     const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
     await stripe.redirectToCheckout({ sessionId: data.id} );
+    setRedirecting(false);
   }
 
   return (
@@ -42,8 +44,8 @@ export default function Plans({plans}) {
                   Just ${plan.price} / {plan.interval}
                 </div>
                 <div>
-                  <button onClick={onCheckout} className="large-button">
-                    <div className="large-button-text">Buy Now</div>
+                  <button disabled={isRedirecting} onClick={onCheckout} className="large-button">
+                    <div className="large-button-text">{isRedirecting ? "Loading..." : "Buy Now"}</div>
                   </button>
                 </div>
               </div>
