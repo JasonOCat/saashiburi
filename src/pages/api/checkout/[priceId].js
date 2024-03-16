@@ -1,6 +1,8 @@
 import {stripe} from "src/pricing/utils/stripe";
 import {SITE_URL} from "src/core/utils";
 
+//Next JS API Routes https://nextjs.org/docs/pages/building-your-application/routing/api-routes
+// in the recent version of NextJs, App Router is used instead of Pages router
 export default async function handler(req, res) {
   const {priceId} = req.query;
 
