@@ -24,7 +24,16 @@ export default async function handler(req, res) {
     return res.status(400).end();
   }
 
-  console.log(event)
+  try {
+    switch (event.type) {
+      case "customer.subscription":
+        console.log("subscription");
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.send({succes: false});
+
+  }
 
   res.send({success: true})
 
