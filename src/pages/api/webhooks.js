@@ -86,7 +86,7 @@ async function updateSubscription(event){
       email,
       email_confirm: true,
       user_metadata: newProfile
-    })
+    });
   }
 }
 

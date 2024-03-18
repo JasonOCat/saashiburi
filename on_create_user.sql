@@ -1,0 +1,1 @@
+create trigger on_create_user after insert on auth.users for each row execute function create_profile();
