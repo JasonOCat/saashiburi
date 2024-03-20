@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "src/core/components/Logo";
 import {useSession, useSupabaseClient} from "@supabase/auth-helpers-react";
+import {SITE_URL} from "src/core/utils";
 
 export default function Navbar() {
   const session = useSession();
@@ -8,6 +9,16 @@ export default function Navbar() {
 
   function signOut() {
     supabaseClient.auth.signOut();
+  }
+
+  async function onManageBilling() {
+    const response = await fetch(`${SITE_URL}/api/manage-billing`);
+    const data = await response.json();
+
+    if (data) {
+      window.location.href = data.url;
+    }
+
   }
 
   return (
@@ -21,7 +32,7 @@ export default function Navbar() {
           <Link href="/products" className="nav-link white">
             <div>Products</div>
           </Link>
-          <a className="nav-link border-left white">
+          <a onClick={onManageBilling} className="nav-link border-left white">
             <div>Billing</div>
           </a>
           <div onClick={signOut} className="nav-link black">
