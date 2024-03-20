@@ -12,6 +12,7 @@ export default function ProductPage({product}) {
   const session = useSession();
   const [productContent, setProductContent] = useState(null);
 
+  // to manage authenticated user that can see content, set the RLS, row level policy in supabase : https://supabase.com/docs/guides/auth/row-level-security
   useEffect(() => {
     async function getProductContent() {
       const {data: productContent} = await supabaseClient
