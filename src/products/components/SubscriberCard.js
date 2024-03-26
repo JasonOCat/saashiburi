@@ -7,7 +7,7 @@ export default function SubscriberCard() {
         <h4>See All Products</h4>
         <p style={{ fontSize: '1rem'}}>Go back to see the entire catalogue</p>
       </div>
-      <Link href="/products" className="primary button">
+      <Link href="/products/index.js" className="primary button">
         Back to Products
       </Link>
     </section>
