@@ -3,29 +3,25 @@ import Image from "next/image";
 import PromoCard from "src/products/components/PromoCard";
 import { notFound } from "next/navigation";
 
-export default async function ProductPage({params}: { params: { slug: string } }) {
+type Props = {
+  params: { slug: string };
+};
+
+export default async function ProductPage({params}: Props) {
 
   // const supabaseClient = useSupabaseClient();
   // const session = useSession();
 
   // to manage authenticated user that can see content, set the RLS, row level policy in supabase : https://supabase.com/docs/guides/auth/row-level-security
-
-  const slug = params.slug
-
-  const {data: products} = await supabase
-    .from('product')
-    .select('*')
-
-  if (!products) {
-    notFound();
-  }
-
-
   const {data: product} = await supabase
     .from('product')
     .select("*")
-    .eq('slug', slug)
+    .eq('slug', params.slug)
     .single()
+
+  if (!product) {
+    notFound();
+  }
 
   const {data: productContent} = await supabase
     .from('product_content')
@@ -33,6 +29,9 @@ export default async function ProductPage({params}: { params: { slug: string } }
     .eq('id', product.product_content_id)
     .single();
 
+  if (!productContent) {
+    notFound();
+  }
 
   return (
     <section className="product-section">
@@ -76,5 +75,19 @@ export default async function ProductPage({params}: { params: { slug: string } }
       </article>
     </section>
   )
+}
+
+export async function generateStaticParams() {
+  const {data: products} = await supabase
+    .from('product')
+    .select('*')
+
+  if (!products) {
+    return [];
+  }
+
+  return products?.map(({slug}) => ({
+    slug,
+  }))
 }
 
