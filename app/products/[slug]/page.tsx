@@ -2,6 +2,7 @@ import { supabase } from "@/supabase";
 import Image from "next/image";
 import PromoCard from "src/products/components/PromoCard";
 import { notFound } from "next/navigation";
+import Video from "@/app/ui/products/video";
 
 type Props = {
   params: { slug: string };
@@ -43,20 +44,14 @@ export default async function ProductPage({params}: Props) {
               <span className="large-button-text">Download</span>
             </a>
           )}
-          {/*{productContent?.video_url ? (*/}
-          {/*  <ReactPlayer controls url={productContent.video_url}/>*/}
-          {/*) : (<Image*/}
-          {/*  width={1000}*/}
-          {/*  height={300}*/}
-          {/*  src={`/assets/${product.slug}.png`}*/}
-          {/*  alt={product.name}*/}
-          {/*/>)}*/}
-          <Image
+          {productContent?.video_url ? (
+            <Video url={productContent.video_url}/>
+          ) : (<Image
             width={1000}
             height={300}
             src={`/assets/${product.slug}.png`}
             alt={product.name}
-          />
+          />)}
         </div>
         <section>
           <header>

@@ -1,5 +1,5 @@
-import { supabase } from "../../supabase";
-import ProductCard from "@/app/ui/products/Card";
+import { supabase } from "@/supabase";
+import ProductCard from "@/app/ui/products/card";
 
 // products will be populated at build time by getStaticProps()
 export default async function ProductsPage() {
