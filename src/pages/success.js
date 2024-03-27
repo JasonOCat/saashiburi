@@ -16,7 +16,7 @@ export default function SuccessPage() {
           />
           <h1>You&apos;re in!</h1>
           <p>You can now access everything on this site. <br/> Ready to get started</p>
-          <Link href="/login" className="large-button">
+          <Link href="/src/pages/login.js" className="large-button">
             <div className="large-button-text">Get Started</div>
           </Link>
         </div>

@@ -41,7 +41,7 @@ export default function Navbar() {
         </div>
       ) : (
         <div className="nav-menu">
-          <Link href="/login" className="nav-link white">
+          <Link href="/src/pages/login.js" className="nav-link white">
             <div>Login</div>
           </Link>
           <Link href="/products/index.js" className="nav-link black">
