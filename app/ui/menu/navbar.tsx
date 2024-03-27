@@ -29,7 +29,7 @@ export default function Navbar() {
 
       {session ? (
         <div className="nav-menu">
-          <Link href="/products/index.js" className="nav-link white">
+          <Link href="/products" className="nav-link white">
             <div>Products</div>
           </Link>
           <a onClick={onManageBilling} className="nav-link border-left white">
@@ -44,7 +44,7 @@ export default function Navbar() {
           <Link href="/login" className="nav-link white">
             <div>Login</div>
           </Link>
-          <Link href="/products/index.js" className="nav-link black">
+          <Link href="/products" className="nav-link black">
             <div>Pricing</div>
           </Link>
         </div>
