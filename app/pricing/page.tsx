@@ -27,7 +27,6 @@ export default async function PricingPage() {
 
 
   }
-  console.log(plans.length);
 
 
   return (
