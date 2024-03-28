@@ -1,6 +1,6 @@
-import {stripe} from "@/src/pricing/utils/stripe";
-import Plans from "@/app/ui/pricing/plans";
-import Benefits from "@/app/ui/pricing/benefits";
+import {stripe} from "@/app/pricing/utils/stripe";
+import Plans from "@/app/pricing/_components/plans";
+import Benefits from "@/app/pricing/_components/benefits";
 
 
 export default async function PricingPage() {

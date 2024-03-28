@@ -1,7 +1,7 @@
 "use client";
 
 import {useState} from "react";
-import {SITE_URL} from "src/core/utils";
+import {SITE_URL} from "@/utils";
 import {loadStripe} from "@stripe/stripe-js";
 
 export default function Plans({plans}) {

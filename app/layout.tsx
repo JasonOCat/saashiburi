@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import "../src/styles/globals.css";
-import AppLayout from "@/app/ui/menu/app-layout";
+import "@/app/_styles/globals.css";
+import AppLayout from "@/app/_components/app-layout";
 
 export const metadata: Metadata = {
   title: {

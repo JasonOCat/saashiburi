@@ -1,6 +1,6 @@
 'use client';
 
-import Navbar from "@/app/ui/menu/navbar";
+import Navbar from "@/app/_components/navbar";
 import { usePathname } from "next/navigation";
 
 const hideNavbatPages = ['/success']

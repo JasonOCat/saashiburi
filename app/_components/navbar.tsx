@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Logo from "src/core/components/Logo";
 import {useSession, useSupabaseClient} from "@supabase/auth-helpers-react";
-import {SITE_URL} from "src/core/utils";
+import {SITE_URL} from "@/utils";
+import Logo from "@/app/_components/logo";
 
 export default function Navbar() {
   const session = useSession();
@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <div className="nav-container border-b-2 border-black">
-      <Link href="/">
+      <Link href="/public">
         <Logo/>
       </Link>
 

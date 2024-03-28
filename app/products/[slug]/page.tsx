@@ -1,13 +1,14 @@
 import { supabase } from "@/supabase";
 import Image from "next/image";
-import PromoCard from "src/products/components/PromoCard";
+import PromoCard from "@/app/products/_components/promo-card";
 import { notFound } from "next/navigation";
-import Video from "@/app/ui/products/video";
+import Video from "@/app/products/_components/video";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 type Props = {
   params: { slug: string };
 };
-
+// TODO handle with session and supabase client
 export default async function ProductPage({params}: Props) {
 
   // const supabaseClient = useSupabaseClient();

@@ -1,5 +1,5 @@
 import {stripe} from "src/pricing/utils/stripe";
-import {SITE_URL} from "src/core/utils";
+import {SITE_URL} from "src/core/utils/index.js.old";
 
 //Next JS API Routes https://nextjs.org/docs/pages/building-your-application/routing/api-routes
 // in the recent version of NextJs, App Router is used instead of Pages router
