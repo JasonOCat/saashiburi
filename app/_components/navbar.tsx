@@ -1,14 +1,19 @@
 import Link from "next/link";
 import {SITE_URL} from "@/utils";
 import Logo from "@/app/_components/logo";
+import { createSupabaseServerClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
+import { createFrontendClient } from "@/utils/supabase/client";
 
-export default function Navbar() {
+export default async function Navbar() {
   // const session = useSession();
-  // const supabaseClient = useSupabaseClient();
+  const supabase = createFrontendClient();
 
   function signOut() {
-    // supabaseClient.auth.signOut();
+    supabase.auth.signOut();
   }
+
+  const { data , error } = await supabase.auth.getUser()
 
   async function onManageBilling() {
     const response = await fetch(`${SITE_URL}/api/manage-billing`);
@@ -17,16 +22,15 @@ export default function Navbar() {
     if (data) {
       window.location.href = data.url;
     }
-
   }
 
   return (
     <div className="nav-container border-b-2 border-black">
-      <Link href="/public">
+      <Link href="/">
         <Logo/>
       </Link>
 
-      {false ? (
+      {data.user != null ? (
         <div className="nav-menu">
           <Link href="/products" className="nav-link white">
             <div>Products</div>

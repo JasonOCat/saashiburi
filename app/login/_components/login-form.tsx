@@ -1,8 +1,10 @@
+"use client"
+
 import {useState} from "react";
-import { createClient } from "@/utils/supabase/client";
+import { createFrontendClient } from "@/utils/supabase/client";
 
 export default function LoginForm({setSubmitted}) {
-  const supabaseClient = createClient()
+  const supabaseClient = createFrontendClient()
   const [error, setError] = useState('');
   const [isLoading, setLoading] = useState(false);
 
