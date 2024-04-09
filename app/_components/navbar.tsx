@@ -1,14 +1,13 @@
 import Link from "next/link";
-import {useSession, useSupabaseClient} from "@supabase/auth-helpers-react";
 import {SITE_URL} from "@/utils";
 import Logo from "@/app/_components/logo";
 
 export default function Navbar() {
-  const session = useSession();
-  const supabaseClient = useSupabaseClient();
+  // const session = useSession();
+  // const supabaseClient = useSupabaseClient();
 
   function signOut() {
-    supabaseClient.auth.signOut();
+    // supabaseClient.auth.signOut();
   }
 
   async function onManageBilling() {
@@ -27,7 +26,7 @@ export default function Navbar() {
         <Logo/>
       </Link>
 
-      {session ? (
+      {false ? (
         <div className="nav-menu">
           <Link href="/products" className="nav-link white">
             <div>Products</div>

@@ -4,8 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import login from '../../public/assets/login.png'
 import {useState} from "react";
-import LoginSubmitted from "@/app/login/_components/loginSubmitted";
-import LoginForm from "@/app/login/_components/loginForm";
+import LoginSubmitted from "@/app/login/_components/login-submitted";
+import LoginForm from "@/app/login/_components/login-form";
 import Logo from "@/app/_components/logo";
 
 export default function LoginPage() {

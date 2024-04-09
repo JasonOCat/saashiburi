@@ -1,8 +1,8 @@
-import {useSupabaseClient} from "@supabase/auth-helpers-react";
 import {useState} from "react";
+import { createClient } from "@/utils/supabase/client";
 
 export default function LoginForm({setSubmitted}) {
-  const supabaseClient = useSupabaseClient()
+  const supabaseClient = createClient()
   const [error, setError] = useState('');
   const [isLoading, setLoading] = useState(false);
 

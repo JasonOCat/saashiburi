@@ -3,7 +3,6 @@ import Image from "next/image";
 import PromoCard from "@/app/products/_components/promo-card";
 import { notFound } from "next/navigation";
 import Video from "@/app/products/_components/video";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 type Props = {
   params: { slug: string };
