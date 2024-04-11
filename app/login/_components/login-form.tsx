@@ -1,43 +1,36 @@
 "use client"
 
-import {useState} from "react";
+import { useState } from "react";
 import { createFrontendClient } from "@/utils/supabase/client";
+import { loginAction } from "@/app/login/actions";
+import { useFormStatus } from 'react-dom'
+import { useFormState } from 'react-dom'
+
+const initialState = {
+  errorMessage: "",
+}
+
+function SubmitButton() {
+  const {pending} = useFormStatus()
+
+  return (
+    <button disabled={pending} type="submit" className="large-button">
+      <div className="large-button-text">
+        {pending ? "Logging in..." : "Log in"}
+      </div>
+    </button>
+  )
+}
 
 export default function LoginForm({setSubmitted}) {
-  const supabaseClient = createFrontendClient()
-  const [error, setError] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  // const loginActionWithSetSubmitted = loginAction.bind(null, setSubmitted)
+  const [state, formAction] = useFormState(loginAction, initialState);
 
-
-  async function onSubmit(event) {
-    setLoading(true);
-    event.preventDefault();
-    const email = event.target.elements.email.value;
-
-    // doc supabase signIn https://supabase.com/dashboard/project/vtjajvdcirctoxlzhoei/api?page=users
-    const {error} = await supabaseClient.auth.signInWithOtp({
-      email,
-      options: {
-        shouldCreateUser: false,
-        emailRedirectTo: window.location.origin,
-      }
-    });
-
-    if (error) {
-      setError(error.message);
-      setLoading(false);
-      console.log(error.message);
-    } else {
-      setError('');
-      setLoading(false);
-      setSubmitted(email);
-    }
-  }
   return (
-    <form onSubmit={onSubmit} className="content-grid home-hero">
-      {error && (
+    <form action={formAction} className="content-grid home-hero">
+      {state?.errorMessage && (
         <div className="danger" role="alert">
-          {error}
+          {state.errorMessage}
         </div>
       )}
       <h1>Welcome back</h1>
@@ -45,11 +38,7 @@ export default function LoginForm({setSubmitted}) {
         <label htmlFor="email">Email</label>
         <input id="email" type="email" name="email" autoComplete="email"/>
       </div>
-      <button disabled={isLoading} type="submit" className="large-button">
-        <div className="large-button-text">
-          {isLoading ? "Logging in..." : "Log in"}
-        </div>
-      </button>
+      <SubmitButton/>
     </form>
   )
 }

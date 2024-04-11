@@ -1,12 +1,9 @@
 import Link from "next/link";
-import {SITE_URL} from "@/utils";
+import { SITE_URL } from "@/utils";
 import Logo from "@/app/_components/logo";
-import { createSupabaseServerClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
 import { createFrontendClient } from "@/utils/supabase/client";
 
 export default async function Navbar() {
-  // const session = useSession();
   const supabase = createFrontendClient();
 
   function signOut() {
