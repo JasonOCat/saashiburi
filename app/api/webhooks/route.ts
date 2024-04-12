@@ -1,4 +1,5 @@
 import { stripe } from "@/utils/stripe/stripe";
+import getRawBody from "raw-body";
 import { createSupabaseServerClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import { Stripe } from "stripe";
@@ -13,14 +14,14 @@ export const config = {
 
 const supabase = createSupabaseServerClient()
 
-export default async function GET(req: NextRequest) {
+export default async function GET(req) {
   const signature = req.headers['stripe-signature'];
   const signingSecret = process.env.STRIPE_SIGNING_SECRET!;
 
   let event;
-  const rawBody = await req.text()
   try {
     //to have a buffer https://github.com/vercel/next.js/discussions/13405
+    const rawBody = req.text()
     event = stripe.webhooks.constructEvent(rawBody, signature, signingSecret);
   } catch (error) {
     console.log("Webhook signature verification failed.")
