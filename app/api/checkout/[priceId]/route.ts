@@ -1,4 +1,4 @@
-import { stripe } from "src/pricing/utils/stripe";
+import { stripe } from "@/utils/stripe/stripe";
 import { NextRequest, NextResponse } from "next/server";
 import { SITE_URL } from "@/utils";
 
@@ -14,4 +14,4 @@ export async function GET(req: NextRequest, {params}: { params: { priceId: strin
   });
 
   return NextResponse.json({id: session.id});
-};
+}

@@ -1,6 +1,7 @@
-import getRawBody from "raw-body";
-import {stripe} from "src/pricing/utils/stripe";
-import {supabase} from "../../../supabase";
+import { stripe } from "@/utils/stripe/stripe";
+import { createSupabaseServerClient } from "@/utils/supabase/server";
+import { NextRequest, NextResponse } from "next/server";
+import { Stripe } from "stripe";
 
 //Strip doc on webhooks : https://docs.stripe.com/webhooks
 // to get the buffer correctly using raw-body
@@ -10,19 +11,21 @@ export const config = {
   },
 };
 
-export default async function handler(req, res) {
+const supabase = createSupabaseServerClient()
+
+export default async function GET(req: NextRequest) {
   const signature = req.headers['stripe-signature'];
-  const signingSecret = process.env.STRIPE_SIGNING_SECRET;
+  const signingSecret = process.env.STRIPE_SIGNING_SECRET!;
 
   let event;
   try {
-    //to have a buffer
-    const rawBody = await getRawBody(req, { limit: "2mb"});
+    //to have a buffer https://github.com/vercel/next.js/discussions/13405
+    const rawBody = await req.text()
     event = stripe.webhooks.constructEvent(rawBody, signature, signingSecret);
 
   } catch (error) {
     console.log("Webhook signature verification failed.")
-    return res.status(400).end();
+    return NextResponse.json(null, { status: 400 });
   }
 
   // Types of Stripe Event https://docs.stripe.com/api/events/object
@@ -39,12 +42,11 @@ export default async function handler(req, res) {
     }
   } catch (error) {
     console.log(error.message);
-    res.send({success: false});
+    return NextResponse.json({success: false});
 
   }
 
-  res.send({success: true})
-
+  return NextResponse.json({success: true});
 };
 
 async function updateSubscription(event){
@@ -70,23 +72,26 @@ async function updateSubscription(event){
       .eq('stripe_customer_id', stripe_customer_id)
   } else {
     // doc stripe retrieve customer  https://docs.stripe.com/api/customers/retrieve
-    const customer = await stripe.customers.retrieve(stripe_customer_id);
-    const name = customer.name;
-    const email = customer.email
-    const newProfile = {
-      name,
-      email,
-      stripe_customer_id,
-      subscription_status,
-      price,
-    }
+    const customer : Stripe.Customer | Stripe.DeletedCustomer = await stripe.customers.retrieve(stripe_customer_id);
+    if (customer.deleted !== true) {
+      const name = customer.name;
+      const email = customer.email!
 
-    // doc supabase to create server-side auth client : https://supabase.com/docs/reference/javascript/admin-api/admin-api
-    await supabase.auth.admin.createUser({
-      email,
-      email_confirm: true,
-      user_metadata: newProfile
-    });
+      const newProfile = {
+        name,
+        email,
+        stripe_customer_id,
+        subscription_status,
+        price,
+      }
+
+      // doc supabase to create server-side auth client : https://supabase.com/docs/reference/javascript/admin-api/admin-api
+      await supabase.auth.admin.createUser({
+        email,
+        email_confirm: true,
+        user_metadata: newProfile
+      });
+    }
   }
 }
 
