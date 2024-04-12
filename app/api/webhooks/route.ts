@@ -18,11 +18,10 @@ export default async function GET(req: NextRequest) {
   const signingSecret = process.env.STRIPE_SIGNING_SECRET!;
 
   let event;
+  const rawBody = await req.text()
   try {
     //to have a buffer https://github.com/vercel/next.js/discussions/13405
-    const rawBody = await req.text()
     event = stripe.webhooks.constructEvent(rawBody, signature, signingSecret);
-
   } catch (error) {
     console.log("Webhook signature verification failed.")
     return NextResponse.json(null, { status: 400 });
