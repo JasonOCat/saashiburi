@@ -7,15 +7,15 @@ import { NextApiRequest } from "next";
 
 //Strip doc on webhooks : https://docs.stripe.com/webhooks
 // to get the buffer correctly using raw-body
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 const supabase = createSupabaseServerClient()
 
-export default async function GET(req: Request) {
+export default async function POST(req: Request) {
   const signature = req.headers['stripe-signature'];
   const signingSecret = process.env.STRIPE_SIGNING_SECRET!;
 
