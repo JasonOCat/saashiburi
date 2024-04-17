@@ -1,3 +1,5 @@
+"use server"
+
 import { stripe } from "@/utils/stripe/stripe";
 // import getRawBody from "raw-body";
 import { createSupabaseServerClient } from "@/utils/supabase/server";
@@ -48,7 +50,7 @@ export async function POST(req: Request) {
   }
 
   return NextResponse.json({success: true});
-};
+}
 
 async function updateSubscription(event){
   const subscription = event.data.object
