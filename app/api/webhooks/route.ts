@@ -1,5 +1,3 @@
-"use server"
-
 import { stripe } from "@/utils/stripe/stripe";
 // import getRawBody from "raw-body";
 import { createSupabaseServerClient } from "@/utils/supabase/server";
@@ -14,8 +12,6 @@ import { NextApiRequest } from "next";
 //     bodyParser: false,
 //   },
 // };
-
-const supabase = createSupabaseServerClient()
 
 export async function POST(req: Request) {
   const signature = req.headers['stripe-signature'];
@@ -53,6 +49,7 @@ export async function POST(req: Request) {
 }
 
 async function updateSubscription(event){
+  const supabase = createSupabaseServerClient()
   const subscription = event.data.object
   const stripe_customer_id = subscription.customer;
   const subscription_status = subscription.status;
@@ -99,6 +96,7 @@ async function updateSubscription(event){
 }
 
 async function deleteSubscription(event){
+  const supabase = createSupabaseServerClient()
   const subscription = event.data.object
   const stripe_customer_id = subscription.customer;
   const subscription_status = subscription.status;
