@@ -15,7 +15,7 @@ import { NextApiRequest } from "next";
 
 const supabase = createSupabaseServerClient()
 
-export default async function POST(req: Request) {
+export async function POST(req: Request) {
   const signature = req.headers['stripe-signature'];
   const signingSecret = process.env.STRIPE_SIGNING_SECRET!;
 
