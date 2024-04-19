@@ -1,9 +1,10 @@
-import { supabase } from "@/supabase";
+
 import ProductCard from "@/app/products/_components/product-card";
+import { createSupabaseServerClient } from "@/utils/supabase/server";
 
 // products will be populated at build time by getStaticProps()
 export default async function ProductsPage() {
-  let {data: products} = await supabase
+  let {data: products} = await createSupabaseServerClient()
     .from('product')
     .select('*')
   return (
