@@ -3,7 +3,7 @@
 import { createSupabaseServerClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 
-export async function loginAction(prevState: {errorMessage: string}, formData: FormData) {
+export async function loginAction(prevState: {errorMessage: string, success: boolean, email: string}, formData: FormData) {
   const supabaseClient = createSupabaseServerClient()
   const email = String(formData.get("email"));
 
@@ -18,10 +18,10 @@ export async function loginAction(prevState: {errorMessage: string}, formData: F
 
   if (error) {
     console.log(error.message);
-    return {errorMessage: error.message};
+    return {errorMessage: error.message, success: false};
   } else {
     // setSubmitted(email);
     revalidatePath('/')
-    return {errorMessage: ""};
+    return {errorMessage: "", success: true, email: email};
   }
 }

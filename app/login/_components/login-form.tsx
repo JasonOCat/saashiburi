@@ -4,7 +4,9 @@ import { loginAction } from "@/app/login/actions";
 import { useFormState, useFormStatus } from 'react-dom'
 
 const initialState = {
+  success: false,
   errorMessage: "",
+  email: ""
 }
 
 function SubmitButton() {
@@ -23,6 +25,10 @@ export default function LoginForm({setSubmitted}) {
   // const loginActionWithSetSubmitted = loginAction.bind(null, setSubmitted)
   const [state, formAction] = useFormState(loginAction, initialState);
 
+  if (state?.success) {
+    setSubmitted(state.email);
+  }
+
   return (
     <form action={formAction} className="content-grid home-hero">
       {state?.errorMessage && (
@@ -37,5 +43,5 @@ export default function LoginForm({setSubmitted}) {
       </div>
       <SubmitButton/>
     </form>
-  )
+  );
 }
