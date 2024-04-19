@@ -4,8 +4,6 @@ import { notFound } from "next/navigation";
 import Video from "@/app/products/_components/video";
 import { createSupabaseServerClient } from "@/utils/supabase/server";
 import { createFrontendClient } from "@/utils/supabase/client";
-import { supabase } from "@/supabase";
-import { createServerClient } from "@supabase/ssr";
 import SubscriberCard from "@/app/products/_components/subscriber-card";
 
 type Props = {
@@ -15,7 +13,7 @@ type Props = {
 export default async function ProductPage({params}: Props) {
 
   const supabaseClient = createSupabaseServerClient()
-  const { data} = await supabase.auth.getUser()
+  const { data} = await supabaseClient.auth.getUser()
 
   // to manage authenticated user that can see content, set the RLS, row level policy in supabase : https://supabase.com/docs/guides/auth/row-level-security
   const {data: product} = await supabaseClient
@@ -33,10 +31,6 @@ export default async function ProductPage({params}: Props) {
     .select('*')
     .eq('id', product.product_content_id)
     .single();
-
-  // if (!productContent) {
-  //   notFound();
-  // }
 
   return (
     <section className="product-section">
