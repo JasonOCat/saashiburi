@@ -1,15 +1,16 @@
 import Link from "next/link";
-import Logo from "src/core/components/Logo";
-import {useSession, useSupabaseClient} from "@supabase/auth-helpers-react";
-import {SITE_URL} from "src/core/utils";
+import { SITE_URL } from "@/utils";
+import Logo from "@/app/_components/logo";
+import { createFrontendClient } from "@/utils/supabase/client";
 
-export default function Navbar() {
-  const session = useSession();
-  const supabaseClient = useSupabaseClient();
+export default async function Navbar() {
+  const supabase = createFrontendClient();
 
   function signOut() {
-    supabaseClient.auth.signOut();
+    supabase.auth.signOut();
   }
+
+  const { data , error } = await supabase.auth.getUser()
 
   async function onManageBilling() {
     const response = await fetch(`${SITE_URL}/api/manage-billing`);
@@ -18,7 +19,6 @@ export default function Navbar() {
     if (data) {
       window.location.href = data.url;
     }
-
   }
 
   return (
@@ -27,7 +27,7 @@ export default function Navbar() {
         <Logo/>
       </Link>
 
-      {session ? (
+      {data.user != null ? (
         <div className="nav-menu">
           <Link href="/products" className="nav-link white">
             <div>Products</div>

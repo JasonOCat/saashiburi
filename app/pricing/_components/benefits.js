@@ -1,4 +1,3 @@
-
 const benefits = [
   {
     title: "One low price",

@@ -1,6 +1,6 @@
 import { createServerSupabaseClient} from "@supabase/auth-helpers-nextjs";
 import {stripe} from "src/pricing/utils/stripe";
-import {SITE_URL} from "src/core/utils";
+import {SITE_URL} from "src/core/utils/index.js.old";
 
 // deprecated doc supabase server client https://supabase.com/docs/guides/auth/auth-helpers/nextjs-pages?migration-side=before#deprecated-functions
 export default async function handler(req, res) {

@@ -10,6 +10,7 @@ import {useState} from "react";
 export default function App({ Component, pageProps }) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient())
   return (
+    // auth helpers with pages directory deprecated : https://supabase.com/docs/guides/auth/auth-helpers/nextjs-pages
     // doc supabase auth helpers : https://supabase.com/docs/guides/auth/auth-helpers/nextjs deprecated, use cookie now
     <SessionContextProvider
       supabaseClient={supabaseClient}

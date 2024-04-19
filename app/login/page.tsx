@@ -1,10 +1,12 @@
+"use client";
+
 import Link from "next/link";
-import Logo from "src/core/components/Logo";
-import LoginForm from "src/login/components/LoginForm";
 import Image from "next/image";
 import login from '../../public/assets/login.png'
-import LoginSubmitted from "src/login/components/LoginSubmitted";
 import {useState} from "react";
+import LoginSubmitted from "@/app/login/_components/login-submitted";
+import LoginForm from "@/app/login/_components/login-form";
+import Logo from "@/app/_components/logo";
 
 export default function LoginPage() {
   const [submitted, setSubmitted] = useState('');

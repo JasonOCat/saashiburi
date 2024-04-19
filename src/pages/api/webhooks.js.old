@@ -1,5 +1,5 @@
 import getRawBody from "raw-body";
-import {stripe} from "src/pricing/utils/stripe";
+import {stripe} from "src/pricing/utils/stripe.ts.old";
 import {supabase} from "../../../supabase";
 
 //Strip doc on webhooks : https://docs.stripe.com/webhooks
