@@ -5,7 +5,7 @@ https://saashiburi.vercel.app/
 
 ## Technologies Used
 
-- Next.js (13), Supabase, Stripe, Vercel
+- Next.js (14), Supabase, Stripe, Vercel
 
 ## Tools Needed
 
